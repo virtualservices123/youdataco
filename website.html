@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Data Services - Empowering Agencies with Precision Data Solutions</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Custom styles for the Inter font and smooth scrolling */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #f0f8ff; /* Light Sky Blue background */
+        }
+        /* Custom gradient for buttons using blue/sky blue palette */
+        .btn-gradient {
+            background-image: linear-gradient(to right, #3b82f6, #22d3ee, #0ea5e9); /* Blue to Cyan to Light Blue */
+            transition: all 0.3s ease;
+            background-size: 200% auto; /* For hover effect */
+        }
+        .btn-gradient:hover {
+            background-position: right center; /* Move gradient on hover */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            transform: translateY(-2px); /* Slight lift on hover */
+        }
+        /* Custom styles for sections to add visual separation and rounded edges */
+        section {
+            padding: 4rem 1rem; /* Consistent vertical padding, responsive horizontal padding */
+            margin: 2rem auto; /* Consistent horizontal margin and centering */
+            max-width: 1200px; /* Max width for content */
+            border-radius: 1.5rem; /* Rounded corners for sections */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Subtle shadow */
+        }
+        /* Specific section background colors */
+        #home {
+            background-image: linear-gradient(to bottom right, #3b82f6, #0ea5e9); /* Blue gradient for hero */
+            color: white;
+            padding-top: 8rem; /* Adjust for fixed header */
+            padding-bottom: 8rem;
+            border-radius: 0 0 3rem 3rem; /* More rounded bottom for hero */
+            min-height: calc(100vh - 64px); /* Adjust hero height for new nav size */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #services, #why-us, #contact {
+            background-color: #ffffff; /* White background for content sections */
+        }
+        #about-us, #our-team, #testimonials {
+            background-color: #e0f2fe; /* Light blue background for alternating sections */
+        }
+        footer {
+            background-color: #0c4a6e; /* Dark blue for footer */
+            color: #e0f2fe;
+            border-radius: 3rem 3rem 0 0; /* Rounded top for footer */
+            padding: 2.5rem 1rem; /* Adjust footer padding */
+        }
+
+        /* Responsive adjustments for section padding */
+        @media (min-width: 768px) {
+            section {
+                padding: 6rem 2rem; /* More padding on larger screens */
+            }
+            #home {
+                padding-top: 10rem;
+                padding-bottom: 10rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            section {
+                padding: 8rem 2rem; /* Even more padding on larger screens */
+            }
+        }
+
+        /* Animation for section titles */
+        .section-title {
+            animation: fadeInDown 1s ease-out;
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Navbar hide/show styles */
+        .navbar-hidden {
+            transform: translateY(-100%);
+        }
+
+        /* Testimonial slider specific styles */
+        .testimonial-container {
+            position: relative;
+            overflow: hidden; /* Hide overflowing reviews */
+            max-width: 4xl; /* Increased max-width for better display of reviews */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .testimonial-slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            /* Width will be determined by flex items */
+        }
+        .testimonial-item {
+            flex: 0 0 100%; /* Each item takes exactly 100% of the container's width */
+            box-sizing: border-box; /* Include padding/border in width */
+            padding: 2rem; /* Inner padding for the review content */
+            text-align: center;
+            background-color: white;
+            border-radius: 1.5rem; /* Match section border-radius */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Subtle shadow */
+            border: 1px solid #bfdbfe; /* blue-100 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 250px; /* Ensure a minimum height for consistent look, but content will expand it */
+        }
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 9999px; /* Full circle */
+            padding: 0.75rem;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .slider-arrow:hover {
+            background-color: rgba(255, 255, 255, 1);
+            transform: translateY(-50%) scale(1.05);
+        }
+        .slider-arrow.left {
+            left: 1rem;
+        }
+        .slider-arrow.right {
+            right: 1rem;
+        }
+
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease-in-out;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+        .modal-close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+            transition: color 0.2s;
+        }
+        .modal-close-button:hover {
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Navigation Bar -->
+    <nav id="main-navbar" class="bg-white shadow-lg py-3 px-6 md:px-12 fixed w-full z-50 rounded-b-xl top-0 transition-transform duration-300 ease-in-out">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo Placeholder -->
+            <a href="#" class="flex items-center space-x-2 text-xl font-bold text-blue-700">
+                <img src="https://placehold.co/40x40/87CEEB/ffffff?text=Logo" alt="Company Logo" class="h-8 w-8 rounded-full shadow-md">
+                <span>YourDataCo</span>
+            </a>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-600 hover:text-blue-700 focus:outline-none focus:text-blue-700 p-2 rounded-md">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Desktop Menu -->
+            <ul class="hidden md:flex space-x-8">
+                <li><a href="#home" class="text-base text-gray-700 hover:text-blue-700 font-medium transition duration-300 p-2 rounded-md">Home</a></li>
+                <li><a href="#services" class="text-base text-gray-700 hover:text-blue-700 font-medium transition duration-300 p-2 rounded-md">Services</a></li>
+                <li><a href="#about-us" class="text-base text-gray-700 hover:text-blue-700 font-medium transition duration-300 p-2 rounded-md">About Us</a></li>
+                <li><a href="#our-team" class="text-base text-gray-700 hover:text-blue-700 font-medium transition duration-300 p-2 rounded-md">Our Team</a></li>
+                <li><a href="#why-us" class="text-base text-gray-700 hover:text-blue-700 font-medium transition duration-300 p-2 rounded-md">Why Choose Us</a></li>
+                <li><a href="#contact" class="text-base text-gray-700 hover:text-blue-700 font-medium transition duration-300 p-2 rounded-md">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- Mobile Menu (hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4 bg-white rounded-md shadow-inner">
+            <ul class="flex flex-col space-y-2 py-2">
+                <li><a href="#home" class="block text-sm text-gray-700 hover:text-blue-700 font-medium py-2 px-4 rounded-md transition duration-300">Home</a></li>
+                <li><a href="#services" class="block text-sm text-gray-700 hover:text-blue-700 font-medium py-2 px-4 rounded-md transition duration-300">Services</a></li>
+                <li><a href="#about-us" class="block text-sm text-gray-700 hover:text-blue-700 font-medium py-2 px-4 rounded-md transition duration-300">About Us</a></li>
+                <li><a href="#our-team" class="block text-sm text-gray-700 hover:text-blue-700 font-medium py-2 px-4 rounded-md transition duration-300">Our Team</a></li>
+                <li><a href="#why-us" class="block text-sm text-gray-700 hover:text-blue-700 font-medium py-2 px-4 rounded-md transition duration-300">Why Choose Us</a></li>
+                <li><a href="#contact" class="block text-sm text-gray-700 hover:text-blue-700 font-medium py-2 px-4 rounded-md transition duration-300">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="text-white text-center">
+        <div class="container mx-auto px-6 py-16">
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 drop-shadow-lg section-title">
+                Precision Data Services for US Agencies
+            </h1>
+            <p class="text-lg md:text-xl mb-10 max-w-3xl mx-auto opacity-95">
+                Your trusted partner for high-quality, commission-based data solutions, powered by a dedicated team of 50 professionals.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#services" class="inline-block btn-gradient text-white font-bold py-3 px-8 rounded-full text-lg shadow-xl hover:shadow-2xl">
+                    Explore Our Services
+                </a>
+                <a href="#contact" class="inline-block bg-white text-blue-700 font-bold py-3 px-8 rounded-full text-lg shadow-xl hover:shadow-2xl hover:bg-gray-100 transition duration-300 transform hover:scale-105">
+                    Get a Free Quote
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="bg-white text-center">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 section-title">Our Comprehensive Data Services</h2>
+            <p class="text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
+                We offer a full spectrum of data solutions designed to optimize your operations and provide actionable insights.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Card 1: Data Processing -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 transform hover:-translate-y-2 border border-blue-100">
+                    <div class="text-blue-600 mb-4">
+                        <i class="fas fa-database text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Data Processing & Entry</h3>
+                    <p class="text-gray-600">
+                        High-volume, accurate data entry and processing from diverse sources, ensuring data integrity and timely delivery.
+                    </p>
+                </div>
+
+                <!-- Service Card 2: Data Analytics -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 transform hover:-translate-y-2 border border-blue-100">
+                    <div class="text-blue-600 mb-4">
+                        <i class="fas fa-chart-line text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Data Analysis & Reporting</h3>
+                    <p class="text-gray-600">
+                        Transform raw data into meaningful reports, custom dashboards, and visualizations for strategic decision-making.
+                    </p>
+                </div>
+
+                <!-- Service Card 3: Data Mining & Extraction -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 transform hover:-translate-y-2 border border-blue-100">
+                    <div class="text-blue-600 mb-4">
+                        <i class="fas fa-magnifying-glass-chart text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Data Mining & Extraction</h3>
+                    <p class="text-gray-600">
+                        Uncover valuable patterns, trends, and insights from large datasets to support your agency's objectives.
+                    </p>
+                </div>
+
+                <!-- Service Card 4: Data Cleansing -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 transform hover:-translate-y-2 border border-blue-100">
+                    <div class="text-blue-600 mb-4">
+                        <i class="fas fa-broom text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Data Cleansing & Validation</h3>
+                    <p class="text-gray-600">
+                        Ensure the accuracy, consistency, and reliability of your datasets by identifying and correcting errors.
+                    </p>
+                </div>
+
+                <!-- Service Card 5: Document Processing -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 transform hover:-translate-y-2 border border-blue-100">
+                    <div class="text-blue-600 mb-4">
+                        <i class="fas fa-file-invoice text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Document & Image Processing</h3>
+                    <p class="text-gray-600">
+                        Efficient processing of various document types and images, converting them into usable digital data.
+                    </p>
+                </div>
+
+                <!-- Service Card 6: Custom Solutions -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 transform hover:-translate-y-2 border border-blue-100">
+                    <div class="text-blue-600 mb-4">
+                        <i class="fas fa-cogs text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Custom Data Solutions</h3>
+                    <p class="text-gray-600">
+                        Tailored data solutions developed to address your unique challenges and maximize your data's potential.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about-us" class="text-center">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 section-title">About YourDataCo</h2>
+            <p class="text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
+                Our journey began with a clear vision: to deliver unparalleled data services to US agencies.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center text-left">
+                <div class="order-2 md:order-1">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">Our Story & Mission</h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        Founded in [Year], YourDataCo was established to bridge the gap between complex data challenges and actionable solutions for US government agencies and businesses. We recognized the critical need for reliable, scalable, and cost-effective data management, leading us to build a unique commission-based model.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        Our mission is to empower agencies by transforming their raw data into strategic assets, ensuring precision, security, and efficiency in every project we undertake. We are committed to fostering long-term partnerships built on trust and mutual success.
+                    </p>
+                </div>
+                <div class="order-1 md:order-2 relative rounded-xl overflow-hidden shadow-xl border-4 border-blue-300">
+                    <img src="https://placehold.co/600x400/87CEEB/ffffff?text=Our+Story" alt="Our Story" class="w-full h-auto object-cover">
+                    <div class="absolute inset-0 bg-blue-700 opacity-20"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Team Section -->
+    <section id="our-team" class="text-center">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 section-title">Meet Our Expert Team</h2>
+            <p class="text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
+                Our strength lies in our dedicated professionals, each committed to excellence and your success.
+            </p>
+
+            <!-- Leadership Subsection -->
+            <h3 class="text-2xl font-semibold text-gray-900 mb-8 section-title">Our Leadership</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <!-- Team Member 1 (Leadership) -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-blue-200 flex flex-col items-center cursor-pointer hover:shadow-lg transition duration-300 transform hover:-translate-y-1" data-profile-id="1">
+                    <img src="https://placehold.co/120x120/ADD8E6/000000?text=CEO" alt="Jane Doe" class="w-32 h-32 rounded-full object-cover mb-4 border-4 border-blue-300">
+                    <h4 class="text-xl font-semibold text-gray-900">Jane Doe</h4>
+                    <p class="text-blue-600">CEO & Founder</p>
+                    <p class="text-gray-600 mt-2 text-center text-sm">Visionary leader with 15+ years in data solutions.</p>
+                </div>
+                <!-- Team Member 2 (Leadership) -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-blue-200 flex flex-col items-center cursor-pointer hover:shadow-lg transition duration-300 transform hover:-translate-y-1" data-profile-id="2">
+                    <img src="https://placehold.co/120x120/ADD8E6/000000?text=CTO" alt="John Smith" class="w-32 h-32 rounded-full object-cover mb-4 border-4 border-blue-300">
+                    <h4 class="text-xl font-semibold text-gray-900">John Smith</h4>
+                    <p class="text-blue-600">Chief Technology Officer</p>
+                    <p class="text-gray-600 mt-2 text-center text-sm">Expert in AI/ML and scalable data infrastructures.</p>
+                </div>
+                <!-- Team Member 3 (Leadership) -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-blue-200 flex flex-col items-center cursor-pointer hover:shadow-lg transition duration-300 transform hover:-translate-y-1" data-profile-id="3">
+                    <img src="https://placehold.co/120x120/ADD8E6/000000?text=Ops" alt="Emily White" class="w-32 h-32 rounded-full object-cover mb-4 border-4 border-blue-300">
+                    <h4 class="text-xl font-semibold text-gray-900">Emily White</h4>
+                    <p class="text-blue-600">Head of Operations</p>
+                    <p class="text-gray-600 mt-2 text-center text-sm">Ensuring seamless project delivery and client satisfaction.</p>
+                </div>
+            </div>
+
+            <!-- Meet Our Team (General Stats) -->
+            <h3 class="text-2xl font-semibold text-gray-900 mb-8 section-title">Our Collective Strength</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <!-- Team Stat 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-md border border-blue-200">
+                    <div class="text-blue-600 mb-4">
+                        <i class="fas fa-users text-5xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900">50+</h3>
+                    <p class="text-gray-600">Dedicated Professionals</p>
+                </div>
+                <!-- Team Stat 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-md border border-blue-200">
+                    <div class="text-blue-600 mb-4">
+                        <i class="fas fa-medal text-5xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900">Years of Experience</h3>
+                    <p class="text-gray-600">Collective Industry Expertise</p>
+                </div>
+                <!-- Team Stat 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-md border border-blue-200">
+                    <div class="text-blue-600 mb-4">
+                        <i class="fas fa-handshake text-5xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900">Client Success</h3>
+                    <p class="text-gray-600">Driven by Your Achievements</p>
+                </div>
+            </div>
+
+            <!-- Profile Section (Individual Profiles) -->
+            <h3 class="text-2xl font-semibold text-gray-900 mb-8 section-title">Individual Profiles</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="team-profiles-grid">
+                <!-- Profile cards will be dynamically inserted here by JavaScript -->
+            </div>
+            <button id="toggle-team-display" class="btn-gradient text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 mt-12">
+                Show More Team Members
+            </button>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="why-us" class="bg-white text-center">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 section-title">Why Agencies Choose YourDataCo</h2>
+            <p class="text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
+                Discover the core advantages that make us the preferred partner for US agencies.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Benefit Card 1: Commission-Based Model -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 transform hover:-translate-y-2 border border-blue-100">
+                    <div class="text-blue-600 mb-4">
+                        <i class="fas fa-handshake-angle text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Performance-Based Partnership</h3>
+                    <p class="text-gray-600">
+                        Our unique commission-based model means we succeed only when you achieve your data goals.
+                    </p>
+                </div>
+
+                <!-- Benefit Card 2: Unmatched Accuracy -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 transform hover:-translate-y-2 border border-blue-100">
+                    <div class="text-blue-600 mb-4">
+                        <i class="fas fa-bullseye text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Unmatched Accuracy</h3>
+                    <p class="text-gray-600">
+                        Rigorous quality checks and expert oversight ensure the highest data precision for your projects.
+                    </p>
+                </div>
+
+                <!-- Benefit Card 3: Scalability -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 transform hover:-translate-y-2 border border-blue-100">
+                    <div class="text-blue-600 mb-4">
+                        <i class="fas fa-expand-alt text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Scalable Solutions</h3>
+                    <p class="text-gray-600">
+                        From small tasks to large-scale enterprise projects, our team scales to meet your evolving needs.
+                    </p>
+                </div>
+
+                <!-- Benefit Card 4: Data Security -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 transform hover:-translate-y-2 border border-blue-100">
+                    <div class="text-blue-600 mb-4">
+                        <i class="fas fa-shield-alt text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Robust Data Security</h3>
+                    <p class="text-gray-600">
+                        We prioritize your data's safety with advanced encryption and strict compliance protocols.
+                    </p>
+                </div>
+
+                <!-- Benefit Card 5: Timely Delivery -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 transform hover:-translate-y-2 border border-blue-100">
+                    <div class="text-blue-600 mb-4">
+                        <i class="fas fa-clock text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Timely Delivery</h3>
+                    <p class="text-gray-600">
+                        Our efficient processes and dedicated team ensure projects are completed on schedule, every time.
+                    </p>
+                </div>
+
+                <!-- Benefit Card 6: US Agency Focus -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 transform hover:-translate-y-2 border border-blue-100">
+                    <div class="text-blue-600 mb-4">
+                        <i class="fas fa-flag-usa text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">US Agency Expertise</h3>
+                    <p class="text-gray-600">
+                        Deep understanding of the specific requirements and nuances of US government agencies.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="text-center">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 section-title">What Our Clients Say</h2>
+            <p class="text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
+                Hear from agencies who have experienced the YourDataCo difference.
+            </p>
+
+            <div class="testimonial-container relative max-w-3xl mx-auto">
+                <div class="testimonial-slider" id="testimonial-slider">
+                    <!-- Testimonial items will be dynamically inserted here by JavaScript -->
+                </div>
+                <button class="slider-arrow left text-blue-600 hover:text-blue-800" aria-label="Previous Testimonial" id="prev-testimonial">
+                    <i class="fas fa-chevron-left text-2xl"></i>
+                </button>
+                <button class="slider-arrow right text-blue-600 hover:text-blue-800" aria-label="Next Testimonial" id="next-testimonial">
+                    <i class="fas fa-chevron-right text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-white text-center">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 section-title">Get in Touch</h2>
+            <p class="text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
+                Ready to transform your data? Contact us today for a free consultation.
+            </p>
+
+            <div class="max-w-xl mx-auto bg-blue-50 p-8 rounded-xl shadow-xl text-gray-800 border-2 border-blue-200">
+                <form action="#" method="POST" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-left text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                        <input type="text" id="name" name="name" class="mt-1 block w-full px-4 py-2 border border-blue-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="John Doe" required>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-left text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <input type="email" id="email" name="email" class="mt-1 block w-full px-4 py-2 border border-blue-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="you@example.com" required>
+                    </div>
+                    <div>
+                        <label for="message" class="block text-left text-sm font-medium text-gray-700 mb-1">Your Message</label>
+                        <textarea id="message" name="message" rows="4" class="mt-1 block w-full px-4 py-2 border border-blue-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Tell us about your data needs..." required></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" class="w-full btn-gradient text-white font-bold py-3 px-6 rounded-full hover:shadow-xl transition duration-300 transform hover:scale-105">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="mt-12 text-gray-700">
+                <h3 class="text-2xl font-semibold mb-4">Other Ways to Connect</h3>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-8">
+                    <div class="flex items-center justify-center space-x-2">
+                        <i class="fas fa-envelope text-blue-600 text-xl"></i>
+                        <span>info@yourcompany.com</span>
+                    </div>
+                    <div class="flex items-center justify-center space-x-2">
+                        <i class="fas fa-phone text-blue-600 text-xl"></i>
+                        <span>+1 (123) 456-7890</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-gray-300 py-10">
+        <div class="container mx-auto px-6 text-center md:flex md:justify-between md:items-center">
+            <p class="mb-4 md:mb-0">&copy; 2025 YourDataCo. All rights reserved.</p>
+            <div class="flex justify-center space-x-6">
+                <a href="#" class="hover:text-white transition duration-300 rounded-md p-1">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition duration-300 rounded-md p-1">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Profile Detail Modal -->
+    <div id="profile-modal-overlay" class="modal-overlay hidden">
+        <div class="modal-content w-full md:w-2/3 lg:w-1/2">
+            <button class="modal-close-button" id="close-profile-modal">&times;</button>
+            <div id="profile-details-content" class="text-center">
+                <!-- Profile details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Mobile Menu Toggle, Scroll Behavior, Team Profiles, and Testimonial Slider -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mainNavbar = document.getElementById('main-navbar');
+
+            // --- Navbar hide/show on scroll ---
+            let lastScrollY = window.scrollY; // Initialize with current scroll position
+            const navbarHeight = mainNavbar.offsetHeight; // Get initial height of navbar
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > lastScrollY && window.scrollY > navbarHeight) {
+                    // Scrolling down and past the navbar height
+                    mainNavbar.classList.add('navbar-hidden');
+                } else if (window.scrollY < lastScrollY) {
+                    // Scrolling up
+                    mainNavbar.classList.remove('navbar-hidden');
+                }
+                lastScrollY = window.scrollY;
+            });
+
+            // --- Mobile Menu Toggle ---
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // --- Team Profiles Data and Logic ---
+            const teamMembers = [
+                // Leadership (IDs 1-3)
+                {
+                    id: 1,
+                    name: "Jane Doe",
+                    title: "CEO & Founder",
+                    image: "https://placehold.co/120x120/ADD8E6/000000?text=CEO",
+                    bio: "Jane is a visionary leader with over 15 years of experience in data strategy and business development. She founded YourDataCo with a mission to deliver high-quality, performance-driven data solutions to government agencies. Her expertise lies in strategic planning, client relations, and fostering a culture of excellence.",
+                    expertise: ["Strategic Planning", "Business Development", "Client Relations"],
+                    linkedin: "#" // Placeholder for LinkedIn URL
+                },
+                {
+                    id: 2,
+                    name: "John Smith",
+                    title: "Chief Technology Officer",
+                    image: "https://placehold.co/120x120/ADD8E6/000000?text=CTO",
+                    bio: "John is a technology enthusiast and an expert in building scalable data infrastructures and implementing cutting-edge AI/ML solutions. With a background in software engineering and data science, he ensures that YourDataCo leverages the latest technologies to deliver efficient and secure data services.",
+                    expertise: ["AI/ML", "Cloud Architecture", "Big Data", "Data Security"],
+                    linkedin: "#"
+                },
+                {
+                    id: 3,
+                    name: "Emily White",
+                    title: "Head of Operations",
+                    image: "https://placehold.co/120x120/ADD8E6/000000?text=Ops",
+                    bio: "Emily is the backbone of YourDataCo's operational efficiency. With a keen eye for detail and a passion for process optimization, she ensures seamless project delivery and exceptional client satisfaction. Her leadership in managing our 50-person team is instrumental to our success.",
+                    expertise: ["Project Management", "Process Optimization", "Team Leadership", "Quality Assurance"],
+                    linkedin: "#"
+                },
+                // General Team Members (IDs 4 onwards) - 16 members
+                {
+                    id: 4,
+                    name: "Michael Brown",
+                    title: "Senior Data Analyst",
+                    image: "https://placehold.co/100x100/ADD8E6/000000?text=TM4",
+                    bio: "Michael specializes in transforming complex datasets into clear, actionable insights. He has a strong background in statistical analysis and data visualization, helping clients understand their data better.",
+                    expertise: ["Statistical Analysis", "Data Visualization", "SQL", "Reporting"],
+                    linkedin: "#"
+                },
+                {
+                    id: 5,
+                    name: "Sarah Green",
+                    title: "Data Entry Specialist",
+                    image: "https://placehold.co/100x100/ADD8E6/000000?text=TM5",
+                    bio: "Sarah is a highly accurate and efficient data entry professional, handling high volumes of data with meticulous attention to detail. Her work ensures the foundational quality of our data projects.",
+                    expertise: ["Data Entry", "Accuracy", "Typing Speed", "Data Verification"],
+                    linkedin: "#"
+                },
+                {
+                    id: 6,
+                    name: "David Lee",
+                    title: "Data Engineer",
+                    image: "https://placehold.co/100x100/ADD8E6/000000?text=TM6",
+                    bio: "David designs and builds robust data pipelines and architectures. He is crucial in ensuring data flows smoothly and is ready for analysis and processing.",
+                    expertise: ["ETL", "Database Design", "Python", "Cloud Platforms"],
+                    linkedin: "#"
+                },
+                {
+                    id: 7,
+                    name: "Jessica Taylor",
+                    title: "Quality Assurance Lead",
+                    image: "https://placehold.co/100x100/ADD8E6/000000?text=TM7",
+                    bio: "Jessica leads our quality assurance efforts, implementing stringent checks to guarantee the highest standards of data accuracy and completeness across all projects.",
+                    expertise: ["Quality Control", "Data Validation", "Process Improvement", "Auditing"],
+                    linkedin: "#"
+                },
+                {
+                    id: 8,
+                    name: "Chris Martinez",
+                    title: "AI/ML Developer",
+                    image: "https://placehold.co/100x100/ADD8E6/000000?text=TM8",
+                    bio: "Chris develops and deploys AI and Machine Learning models to automate data processes and extract deeper insights, pushing the boundaries of what our data can do.",
+                    expertise: ["Machine Learning", "Deep Learning", "Python", "Predictive Modeling"],
+                    linkedin: "#"
+                },
+                {
+                    id: 9,
+                    name: "Olivia Davis",
+                    title: "Client Success Manager",
+                    image: "https://placehold.co/100x100/ADD8E6/000000?text=TM9",
+                    bio: "Olivia is dedicated to ensuring our clients achieve their desired outcomes. She acts as a primary point of contact, understanding their needs and ensuring our services align perfectly.",
+                    expertise: ["Client Relations", "Account Management", "Communication", "Problem Solving"],
+                    linkedin: "#"
+                },
+                {
+                    id: 10,
+                    name: "Daniel White",
+                    title: "Data Scientist",
+                    image: "https://placehold.co/100x100/ADD8E6/000000?text=TM10",
+                    bio: "Daniel leverages advanced statistical methods and machine learning to uncover hidden patterns and predict future trends in complex datasets.",
+                    expertise: ["Statistical Modeling", "Predictive Analytics", "R", "Python"],
+                    linkedin: "#"
+                },
+                {
+                    id: 11,
+                    name: "Sophia Kim",
+                    title: "Document Processor",
+                    image: "https://placehold.co/100x100/ADD8E6/000000?text=TM11",
+                    bio: "Sophia specializes in converting various document formats into structured digital data, ensuring high accuracy and efficiency for document-heavy projects.",
+                    expertise: ["Document Conversion", "OCR", "Data Structuring", "Attention to Detail"],
+                    linkedin: "#"
+                },
+                {
+                    id: 12,
+                    name: "James Rodriguez",
+                    title: "Database Administrator",
+                    image: "https://placehold.co/100x100/ADD8E6/000000?text=TM12",
+                    bio: "James is responsible for the performance, integrity, and security of our databases, ensuring robust data storage and retrieval systems.",
+                    expertise: ["Database Management", "SQL", "Performance Tuning", "Backup & Recovery"],
+                    linkedin: "#"
+                },
+                {
+                    id: 13,
+                    name: "Ava Chen",
+                    title: "Junior Data Analyst",
+                    image: "https://placehold.co/100x100/ADD8E6/000000?text=TM13",
+                    bio: "Ava supports senior analysts in data collection, cleaning, and initial analysis, contributing to comprehensive data reports.",
+                    expertise: ["Data Cleaning", "Excel", "Basic SQL", "Data Entry"],
+                    linkedin: "#"
+                },
+                {
+                    id: 14,
+                    name: "William Hall",
+                    title: "Project Coordinator",
+                    image: "https://placehold.co/100x100/ADD8E6/000000?text=TM14",
+                    bio: "William ensures smooth communication and coordination between our team and clients, keeping projects on track and within scope.",
+                    expertise: ["Coordination", "Communication", "Scheduling", "Problem Solving"],
+                    linkedin: "#"
+                },
+                {
+                    id: 15,
+                    name: "Mia King",
+                    title: "Data Quality Specialist",
+                    image: "https://placehold.co/100x100/ADD8E6/000000?text=TM15",
+                    bio: "Mia focuses on maintaining the highest standards of data quality, implementing and monitoring processes to prevent and correct data errors.",
+                    expertise: ["Data Governance", "Data Auditing", "Quality Control", "Data Integrity"],
+                    linkedin: "#"
+                },
+                {
+                    id: 16,
+                    name: "Ethan Wright",
+                    title: "Cloud Solutions Architect",
+                    image: "https://placehold.co/100x100/ADD8E6/000000?text=TM16",
+                    bio: "Ethan designs and implements scalable cloud-based data solutions, optimizing performance and cost-efficiency for our clients.",
+                    expertise: ["AWS", "Azure", "GCP", "Cloud Security"],
+                    linkedin: "#"
+                },
+                {
+                    id: 17,
+                    name: "Chloe Lopez",
+                    title: "Research Analyst",
+                    image: "https://placehold.co/100x100/ADD8E6/000000?text=TM17",
+                    bio: "Chloe conducts in-depth research and data gathering to provide comprehensive information for client projects and market analysis.",
+                    expertise: ["Market Research", "Data Collection", "Report Writing", "Critical Thinking"],
+                    linkedin: "#"
+                },
+                {
+                    id: 18,
+                    name: "Noah Perez",
+                    title: "Technical Support Specialist",
+                    image: "https://placehold.co/100x100/ADD8E6/000000?text=TM18",
+                    bio: "Noah provides essential technical support for our data platforms and tools, ensuring smooth operation for the entire team.",
+                    expertise: ["Troubleshooting", "System Maintenance", "Technical Documentation", "User Support"],
+                    linkedin: "#"
+                },
+                {
+                    id: 19,
+                    name: "Isabella Scott",
+                    title: "Data Visualization Expert",
+                    image: "https://placehold.co/100x100/ADD8E6/000000?text=TM19",
+                    bio: "Isabella transforms complex data into intuitive and impactful visual stories, helping clients quickly grasp key insights.",
+                    expertise: ["Tableau", "Power BI", "D3.js", "Infographics"],
+                    linkedin: "#"
+                }
+            ];
+
+            const teamProfilesGrid = document.getElementById('team-profiles-grid');
+            const toggleTeamDisplayButton = document.getElementById('toggle-team-display'); // Renamed for clarity
+            const profileModalOverlay = document.getElementById('profile-modal-overlay');
+            const profileDetailsContent = document.getElementById('profile-details-content');
+            const closeProfileModalButton = document.getElementById('close-profile-modal');
+
+            const initialDisplayCount = 8; // Number of general team members to show initially
+            let allMembersCurrentlyDisplayed = false; // Renamed for clarity
+
+            // Function to render team profile cards
+            function renderTeamProfiles() {
+                teamProfilesGrid.innerHTML = ''; // Clear existing content
+                const generalTeamMembers = teamMembers.filter(member => member.id >= 4); // Exclude leadership
+
+                const membersToDisplay = allMembersCurrentlyDisplayed ? generalTeamMembers : generalTeamMembers.slice(0, initialDisplayCount);
+
+                membersToDisplay.forEach(member => {
+                    const profileCard = document.createElement('div');
+                    profileCard.className = 'bg-white p-6 rounded-xl shadow-md border border-blue-200 flex flex-col items-center cursor-pointer hover:shadow-lg transition duration-300 transform hover:-translate-y-1';
+                    profileCard.setAttribute('data-profile-id', member.id);
+                    profileCard.innerHTML = `
+                        <img src="${member.image}" alt="${member.name}" class="w-24 h-24 rounded-full object-cover mb-4 border-4 border-blue-300">
+                        <h4 class="text-lg font-semibold text-gray-900">${member.name}</h4>
+                        <p class="text-blue-600 text-sm">${member.title}</p>
+                    `;
+                    profileCard.addEventListener('click', () => showProfileDetails(member.id));
+                    teamProfilesGrid.appendChild(profileCard);
+                });
+
+                // Update button text and visibility
+                if (generalTeamMembers.length > initialDisplayCount) {
+                    toggleTeamDisplayButton.classList.remove('hidden');
+                    if (allMembersCurrentlyDisplayed) {
+                        toggleTeamDisplayButton.textContent = 'Show Less Team Members';
+                    } else {
+                        toggleTeamDisplayButton.textContent = 'Show More Team Members';
+                    }
+                } else {
+                    toggleTeamDisplayButton.classList.add('hidden'); // Hide if there are no more members to show
+                }
+            }
+
+            // Function to show profile details in modal
+            function showProfileDetails(id) {
+                const member = teamMembers.find(m => m.id === id);
+                if (member) {
+                    profileDetailsContent.innerHTML = `
+                        <img src="${member.image}" alt="${member.name}" class="w-32 h-32 rounded-full object-cover mx-auto mb-6 border-4 border-blue-400 shadow-lg">
+                        <h3 class="text-3xl font-bold text-gray-900 mb-2">${member.name}</h3>
+                        <p class="text-blue-700 text-xl font-medium mb-4">${member.title}</p>
+                        <p class="text-gray-700 leading-relaxed mb-6 text-left">${member.bio}</p>
+                        <div class="text-left mb-6">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-2">Areas of Expertise:</h4>
+                            <ul class="list-disc list-inside text-gray-600">
+                                ${member.expertise.map(exp => `<li>${exp}</li>`).join('')}
+                            </ul>
+                        </div>
+                        <a href="${member.linkedin}" target="_blank" class="inline-block bg-blue-600 text-white font-bold py-2 px-6 rounded-full hover:bg-blue-700 transition duration-300">
+                            <i class="fab fa-linkedin mr-2"></i>View LinkedIn Profile
+                        </a>
+                    `;
+                    profileModalOverlay.classList.add('active');
+                    profileModalOverlay.classList.remove('hidden');
+                }
+            }
+
+            // Close profile modal
+            closeProfileModalButton.addEventListener('click', () => {
+                profileModalOverlay.classList.remove('active');
+                // Use a timeout to allow the transition to complete before hiding
+                setTimeout(() => {
+                    profileModalOverlay.classList.add('hidden');
+                }, 300);
+            });
+
+            // Close modal if clicked outside content
+            profileModalOverlay.addEventListener('click', (e) => {
+                if (e.target === profileModalOverlay) {
+                    profileModalOverlay.classList.remove('active');
+                    setTimeout(() => {
+                        profileModalOverlay.classList.add('hidden');
+                    }, 300);
+                }
+            });
+
+            // --- Testimonial Slider Data and Logic ---
+            const testimonialsData = [
+                {
+                    quote: "YourDataCo transformed our raw data into incredibly useful insights. Their team is highly professional and delivered beyond our expectations. This longer quote demonstrates how the height will adjust automatically to fit all the content, ensuring no part of the review is cut off, providing a seamless reading experience for your visitors.",
+                    author: "Jane Doe",
+                    title: "Marketing Director, Agency A",
+                    image: "https://placehold.co/60x60/ADD8E6/000000?text=C1"
+                },
+                {
+                    quote: "The commission-based model was a game-changer for us. YourDataCo's efficiency and dedication are unmatched. Highly recommended! We truly appreciate their performance-driven approach.",
+                    author: "John Smith",
+                    title: "Operations Manager, Agency B",
+                    image: "https://placehold.co/60x60/ADD8E6/000000?text=C2"
+                },
+                {
+                    quote: "We've seen a significant improvement in our data accuracy and processing speed since partnering with YourDataCo. Their team is truly an asset, consistently delivering high-quality results on time.",
+                    author: "Sarah Johnson",
+                    title: "Project Lead, Government Dept. C",
+                    image: "https://placehold.co/60x60/ADD8E6/000000?text=C3"
+                },
+                {
+                    quote: "The custom data solutions they developed perfectly addressed our unique challenges. Their technical expertise is outstanding, and they were very collaborative throughout the entire process.",
+                    author: "David Williams",
+                    title: "IT Manager, Non-Profit D",
+                    image: "https://placehold.co/60x60/ADD8E6/000000?text=C4"
+                },
+                {
+                    quote: "Reliable, secure, and always on time. YourDataCo is our go-to for all data processing needs. A truly professional service that consistently exceeds our expectations.",
+                    author: "Emily Davis",
+                    title: "Compliance Officer, Financial Firm E",
+                    image: "https://placehold.co/60x60/ADD8E6/000000?text=C5"
+                }
+            ];
+
+            let currentReviewIndex = 0;
+            const testimonialSlider = document.getElementById('testimonial-slider');
+            const prevTestimonialBtn = document.getElementById('prev-testimonial');
+            const nextTestimonialBtn = document.getElementById('next-testimonial');
+
+            // Function to render all testimonial items
+            function renderAllTestimonials() {
+                testimonialSlider.innerHTML = ''; // Clear existing content
+                testimonialsData.forEach(testimonial => {
+                    const testimonialItem = document.createElement('div');
+                    // Apply padding to the item itself, and ensure it takes full width of the view
+                    testimonialItem.className = 'testimonial-item'; // Class already has styling
+                    testimonialItem.innerHTML = `
+                        <p class="text-lg italic text-gray-700 mb-6 px-4">"${testimonial.quote}"</p>
+                        <div class="flex items-center justify-center">
+                            <img src="${testimonial.image}" alt="${testimonial.author}" class="w-16 h-16 rounded-full mr-4 border-2 border-blue-300">
+                            <div>
+                                <p class="font-semibold text-gray-900">${testimonial.author}</p>
+                                <p class="text-sm text-gray-500">${testimonial.title}</p>
+                            </div>
+                        </div>
+                    `;
+                    testimonialSlider.appendChild(testimonialItem);
+                });
+            }
+
+            function showTestimonial(index) {
+                // Ensure index loops correctly
+                if (index >= testimonialsData.length) {
+                    currentReviewIndex = 0;
+                } else if (index < 0) {
+                    currentReviewIndex = testimonialsData.length - 1;
+                } else {
+                    currentReviewIndex = index;
+                }
+
+                // Apply transform to slide the entire container by 100% of its own width per item
+                testimonialSlider.style.transform = `translateX(-${currentReviewIndex * 100}%)`;
+            }
+
+            function nextTestimonial() {
+                showTestimonial(currentReviewIndex + 1);
+            }
+
+            function prevTestimonial() {
+                showTestimonial(currentReviewIndex - 1);
+            }
+
+            prevTestimonialBtn.addEventListener('click', prevTestimonial);
+            nextTestimonialBtn.addEventListener('click', nextTestimonial);
+
+            // Initial render calls
+            renderTeamProfiles(); // Call without argument to use initialDisplayCount
+            renderAllTestimonials(); // Render all testimonials initially
+            showTestimonial(currentReviewIndex); // Show the first one
+
+            // Attach click listeners to leadership profiles (IDs 1, 2, 3)
+            document.querySelectorAll('#our-team .grid > div[data-profile-id]').forEach(card => {
+                const profileId = parseInt(card.getAttribute('data-profile-id'));
+                if (profileId >= 1 && profileId <= 3) { // Only for leadership profiles
+                    card.addEventListener('click', () => showProfileDetails(profileId));
+                }
+            });
+
+            // "Show More/Less" button functionality
+            toggleTeamDisplayButton.addEventListener('click', () => {
+                allMembersCurrentlyDisplayed = !allMembersCurrentlyDisplayed; // Toggle the state
+                renderTeamProfiles(); // Re-render based on the new state
+            });
+        });
+    </script>
+
+</body>
+</html>
